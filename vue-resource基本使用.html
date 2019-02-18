@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.4.0.js"></script>
+  <script src="./lib/vue-resource-1.3.4.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <input type="button" value="get请求" @click="getGetInfo">
+    <input type="button" value="post请求" @click="getPostInfo">
+    <input type="button" value="Jsonp请求" @click="getJsonpInfo">
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: "#app",
+      data: {},
+      methods: {
+        //发起 get 请求
+        getGetInfo() {
+          this.$http.get('http://jsonplaceholder.typicode.com/users').then(function (result) {
+            //通过 result.body 拿到 http 请求
+            console.log(result.body);
+          })
+        },
+        //发起 post 请求
+        //通过 post 第三个参数设置提交类型为普通表单格式
+        getPostInfo() {
+          //第一个参数 url ，第二个参数事要传递的数据， 第三个参数事发送的格式
+          this.$http.post('http://jsonplaceholder.typicode.com/users', {}, {
+            emulateJSON: true
+          }).then(result => {
+            console.log(result.body)
+          })
+        },
+        //发起 Jsonp 请求
+        getJsonpInfo() {
+          this.$http.post('http://jsonplaceholder.typicode.com/users').then(result => {
+            console.log(result.body)
+          })
+        }
+      },
+    })
+  </script>
+</body>
+
+</html>

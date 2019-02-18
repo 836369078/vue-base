@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+  <div id="app">
+    <input type="button" value="run" @click="run">
+    <input type="button" value="stop" @click="stop">
+    <h1>{{ msg }}</h1>
+  </div>
+
+  <script>
+    new Vue({
+      el : '#app',
+      data : {
+        msg : '去吧，皮卡丘',
+        controlInterval : null,
+      },
+      methods: {
+        run () {
+          if (this.controlInterval != null) return;
+          this.controlInterval = setInterval (() => {
+            let start = this.msg.substring(0,1);
+            let end = this.msg.substring(1);
+            this.msg = end + start;
+          },100)
+        },
+        stop () {
+          clearInterval(this.controlInterval);
+          this.controlInterval = null;
+        },
+      },
+
+    })
+
+
+  </script>
+</body>
+</html>
