@@ -18,13 +18,20 @@
   </div>
 
   <script>
+    //如果用全局配置启用了根域名，则每次用 http 请求时， url 路径应该为相对路径
+    //前面不能带 / ，如果带了则不会启用根路径拼接
+    Vue.http.options.root = 'http://jsonplaceholder.typicode.com/';
     var vm = new Vue({
       el: "#app",
       data: {},
       methods: {
         //发起 get 请求
         getGetInfo() {
-          this.$http.get('http://jsonplaceholder.typicode.com/users').then(function (result) {
+          // this.$http.get('http://jsonplaceholder.typicode.com/users').then(function (result) {
+          //   //通过 result.body 拿到 http 请求
+          //   console.log(result.body);
+          // })
+          this.$http.get('users').then(function (result) {
             //通过 result.body 拿到 http 请求
             console.log(result.body);
           })
@@ -33,7 +40,7 @@
         //通过 post 第三个参数设置提交类型为普通表单格式
         getPostInfo() {
           //第一个参数 url ，第二个参数事要传递的数据， 第三个参数事发送的格式
-          this.$http.post('http://jsonplaceholder.typicode.com/users', {}, {
+          this.$http.post('users', {}, {
             emulateJSON: true
           }).then(result => {
             console.log(result.body)
@@ -41,7 +48,7 @@
         },
         //发起 Jsonp 请求
         getJsonpInfo() {
-          this.$http.post('http://jsonplaceholder.typicode.com/users').then(result => {
+          this.$http.post('users').then(result => {
             console.log(result.body)
           })
         }
