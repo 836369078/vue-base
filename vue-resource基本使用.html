@@ -21,6 +21,7 @@
     //如果用全局配置启用了根域名，则每次用 http 请求时， url 路径应该为相对路径
     //前面不能带 / ，如果带了则不会启用根路径拼接
     Vue.http.options.root = 'http://jsonplaceholder.typicode.com/';
+    Vue.http.options.emulateJSON = true;
     var vm = new Vue({
       el: "#app",
       data: {},
@@ -39,10 +40,11 @@
         //发起 post 请求
         //通过 post 第三个参数设置提交类型为普通表单格式
         getPostInfo() {
-          //第一个参数 url ，第二个参数事要传递的数据， 第三个参数事发送的格式
-          this.$http.post('users', {}, {
-            emulateJSON: true
-          }).then(result => {
+          //第一个参数 url ，第二个参数事要传递的数据， 第三个参数是发送的格式
+          // this.$http.post('users', {}, { emulateJSON: true }).then(result => {
+          //   console.log(result.body)
+          // })
+          this.$http.post('users', {}).then(result => {
             console.log(result.body)
           })
         },
